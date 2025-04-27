@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ sidebarOpen: false }" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script>
+  $(function () {
+      $("#header").load("header.html");         
+
+  });
+  </script>
+</head>
+<body class="bg-gray-100 flex md:flex-row flex-col ">
+  <aside id="header"></aside>
+
+  <div class="md:w-[80vw] mt-2 md:mt-0 md:mx-2 overflow-x-auto md:overflow-y-auto md:max-h-[100vh] bg-white p-8 rounded-lg shadow-md space-y-8">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">Profile</h1>
+        <p class="text-gray-500 text-sm">Manage your personal information and settings</p>
+      </div>
+      <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+        Edit Profile
+      </button>
+    </div>
+
+    <!-- Profile Info -->
+    <div class="flex flex-col md:flex-row md:items-center md:space-x-8 space-y-6 md:space-y-0">
+
+      <!-- Avatar -->
+      <div class="flex-shrink-0">
+        <img class="w-28 h-28 rounded-full object-cover border-2 border-blue-600" src="https://i.pravatar.cc/150?img=3" alt="Profile Photo">
+      </div>
+
+      <!-- Personal Info -->
+      <div class="space-y-4">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-700">John Doe</h2>
+          <p class="text-gray-500 text-sm">john.doe@example.com</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <p class="text-gray-400 text-xs uppercase mb-1">Phone</p>
+            <p class="text-gray-700">+1 234 567 890</p>
+          </div>
+          <div>
+            <p class="text-gray-400 text-xs uppercase mb-1">Address</p>
+            <p class="text-gray-700">123 Main St, New York, USA</p>
+          </div>
+          <div>
+            <p class="text-gray-400 text-xs uppercase mb-1">Joined</p>
+            <p class="text-gray-700">March 10, 2022</p>
+          </div>
+          <div>
+            <p class="text-gray-400 text-xs uppercase mb-1">Role</p>
+            <p class="text-gray-700">Business User</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Invoice Summary -->
+    <div>
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Invoice Summary</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 bg-gray-50 rounded-lg shadow-sm text-center">
+          <p class="text-gray-500 text-sm">Total Invoices</p>
+          <h3 class="text-2xl font-bold mt-2">120</h3>
+        </div>
+        <div class="p-6 bg-gray-50 rounded-lg shadow-sm text-center">
+          <p class="text-gray-500 text-sm">Paid</p>
+          <h3 class="text-2xl font-bold text-green-600 mt-2">95</h3>
+        </div>
+        <div class="p-6 bg-gray-50 rounded-lg shadow-sm text-center">
+          <p class="text-gray-500 text-sm">Pending</p>
+          <h3 class="text-2xl font-bold text-yellow-600 mt-2">25</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Section -->
+    <div>
+      <h2 class="text-xl font-bold text-gray-800 mb-4 mt-8">Security Settings</h2>
+      <div class="space-y-4">
+
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm">
+          <div>
+            <h4 class="font-semibold text-gray-700">Password</h4>
+            <p class="text-gray-500 text-sm">Last updated 6 months ago</p>
+          </div>
+          <button class="text-blue-600 hover:underline font-semibold">Change</button>
+        </div>
+
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm">
+          <div>
+            <h4 class="font-semibold text-gray-700">Two-Factor Authentication</h4>
+            <p class="text-gray-500 text-sm">Protect your account with extra security</p>
+          </div>
+          <button class="text-blue-600 hover:underline font-semibold">Enable</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div>
+      <h2 class="text-xl font-bold text-gray-800 mb-4 mt-8">Account Settings</h2>
+      <div class="space-y-4">
+
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm">
+          <div>
+            <h4 class="font-semibold text-gray-700">Email Notifications</h4>
+            <p class="text-gray-500 text-sm">Receive updates about invoices and payments</p>
+          </div>
+          <button class="text-blue-600 hover:underline font-semibold">Manage</button>
+        </div>
+
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm">
+          <div>
+            <h4 class="font-semibold text-gray-700">Delete Account</h4>
+            <p class="text-gray-500 text-sm">Permanently remove your account</p>
+          </div>
+          <button class="text-red-600 hover:underline font-semibold">Delete</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

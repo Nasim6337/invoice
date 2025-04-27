@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-10 rounded-xl shadow-md w-full max-w-md">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Welcome Back</h2>
+
+    <form class="space-y-6">
+      <div>
+        <label class="block mb-2 text-sm text-gray-600">Email Address</label>
+        <input type="email" placeholder="Enter your email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+      </div>
+
+      <div>
+        <label class="block mb-2 text-sm text-gray-600">Password</label>
+        <input type="password" placeholder="Enter your password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+      </div>
+
+      <div class="flex items-center justify-between text-sm">
+        <label class="flex items-center gap-2">
+          <input type="checkbox" class="accent-blue-600">
+          Remember me
+        </label>
+        <a href="#" class="text-blue-600 hover:underline">Forgot Password?</a>
+      </div>
+
+      <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-200">
+        Login
+      </button>
+    </form>
+
+    <p class="text-center text-sm text-gray-600 mt-6">
+      Don't have an account? 
+      <a href="./register.html" class="text-blue-600 hover:underline font-semibold">Sign up</a>
+    </p>
+  </div>
+
+</body>
+</html>

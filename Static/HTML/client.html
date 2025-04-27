@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ sidebarOpen: false }" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clients</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script>
+  $(function () {
+      $("#header").load("header.html");         
+
+  });
+  
+</script>
+</head>
+<body class="bg-gray-100  flex md:flex-row flex-col" >
+  
+  <aside id="header"></aside>
+  <div class="md:w-[80vw] mx-4 mt-4 md:mt-0 bg-white p-8 rounded-lg shadow-md space-y-2" id="placeholder">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">Clients</h1>
+        <p class="text-gray-500 text-sm">Manage and track all your linked clients</p>
+      </div>
+      <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+        Add New Client
+      </button>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <input type="text" placeholder="Search clients..." class="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <div class="flex space-x-4">
+        <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option>Status</option>
+          <option>Active</option>
+          <option>Inactive</option>
+        </select>
+        <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option>Sort By</option>
+          <option>Name</option>
+          <option>Invoices</option>
+          <option>Join Date</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Clients Table -->
+    <div class="overflow-x-auto overflow-y-auto max-h-[100vh] md:h-[55vh]">
+      <table class="w-full mt-6 text-sm text-left text-gray-600">
+        <thead class="text-xs uppercase bg-gray-50 text-gray-600">
+          <tr>
+            <th class="px-6 py-3">Client</th>
+            <th class="px-6 py-3">Email</th>
+            <th class="px-6 py-3">Invoices</th>
+            <th class="px-6 py-3">Status</th>
+            <th class="px-6 py-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        
+
+
+          <!-- Another example client -->
+          <tr class="bg-white border-b hover:bg-gray-50">
+            <td class="flex items-center px-6 py-4 whitespace-nowrap space-x-3">
+              <img src="https://i.pravatar.cc/150?img=20" class="w-10 h-10 rounded-full object-cover" alt="Client Avatar">
+              <span class="font-medium text-gray-900">TechStart Inc</span>
+            </td>
+            <td class="px-6 py-4">info@techstart.com</td>
+            <td class="px-6 py-4">8</td>
+            <td class="px-6 py-4">
+              <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-semibold">Pending</span>
+            </td>
+            <td class="px-6 py-4 space-x-3">
+              <button class="text-blue-600 hover:underline font-medium">View</button>
+              <button class="text-yellow-600 hover:underline font-medium">Edit</button>
+              <button class="text-red-600 hover:underline font-medium">Delete</button>
+            </td>
+          </tr>
+
+          <!-- Add more clients dynamically here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Client Summary -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+      <div class="p-2 bg-gray-50 rounded-lg shadow-sm text-center">
+        <p class="text-gray-500 text-sm">Total Clients</p>
+        <h3 class="text-2xl font-bold mt-2">50</h3>
+      </div>
+      <div class="p-2 bg-gray-50 rounded-lg shadow-sm text-center">
+        <p class="text-gray-500 text-sm">Active Clients</p>
+        <h3 class="text-2xl font-bold text-green-600 mt-2">45</h3>
+      </div>
+      <div class="p-2 bg-gray-50 rounded-lg shadow-sm text-center">
+        <p class="text-gray-500 text-sm">Pending Clients</p>
+        <h3 class="text-2xl font-bold text-yellow-600 mt-2">5</h3>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../JavaScript/client.js"></script>
+</body>
+</html>

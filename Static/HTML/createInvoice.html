@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ sidebarOpen: false }" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create New Invoice</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script>
+  $(function () {
+      $("#header").load("header.html");         
+
+  });
+  </script>
+</head>
+
+<body class="bg-gray-100 flex md:flex-row flex-col">
+  <aside id="header"></aside>
+
+
+  <div class="max-w-7xl  md:ml-2 md:mt-0 mt-2 overflow-y-auto overflow-x-auto md:h-[100vh] space-y-2">
+
+    <!-- 🧾 Create Invoice Main Container -->
+  
+    <div class="bg-white p-6 rounded-lg shadow space-y-6">
+  
+      <!-- Title -->
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Create New Invoice</h1>
+        <p class="text-gray-500">Fill in the details below to generate your invoice</p>
+      </div>
+  
+      <!-- 🏢 Business Information -->
+      <section class="space-y-4">
+        <h2 class="text-lg font-semibold text-gray-700">Business Information</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" placeholder="Business Name" class="border rounded-lg p-3 w-full">
+          <input type="email" placeholder="Business Email" class="border rounded-lg p-3 w-full">
+          <textarea placeholder="Business Address" class="border rounded-lg p-3 w-full md:col-span-1" rows="3"></textarea>
+          <input type="text" placeholder="Phone Number" class="border rounded-lg p-3 w-full">
+        </div>
+  
+        <!-- 📷 Business Logo Upload -->
+        <div>
+          <h3 class="text-sm font-semibold text-gray-600 mb-2">Business Logo</h3>
+          <div class="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg h-32">
+            <div class="text-center">
+              <svg class="mx-auto h-10 w-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 48 48">
+                <path d="M6 30V6h36v24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 30l12-12 8 8 12-12 8 8v18H6z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <p class="text-sm text-gray-600">Upload a file</p>
+              <input type="file" name="Upload_logo" id="Upload_logo" class="cursor-pointer">
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <!-- 📋 Items Section -->
+      <section>
+        <h2 class="text-lg font-semibold text-gray-700 mb-4">Items</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-gray-700">
+            <thead class="border-b">
+              <tr>
+                <th class="py-2 px-4 text-left">Item Description</th>
+                <th class="py-2 px-4 text-left">Quantity</th>
+                <th class="py-2 px-4 text-left">Unit Price</th>
+                <th class="py-2 px-4 text-left">Tax (%)</th>
+                <th class="py-2 px-4 text-left">Discount</th>
+                <th class="py-2 px-4 text-left">Total</th>
+                <th class="py-2 px-4"></th>
+              </tr>
+            </thead>
+            <tbody id="add_item" >
+              <tr id="item_cell">
+                <td class="py-2 px-4" >
+                  
+                  <input type="text" class="border rounded-lg p-2 w-full" placeholder="Description"></td>
+
+                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="0"></td>
+
+                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="$0.00"></td>
+
+                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="0%"></td>
+
+                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="$0.00"></td>
+
+                <td class="py-2 px-4 text-gray-800 font-medium">$0.00</td>
+
+                <td class="py-2 px-4 text-red-500 cursor-pointer" title="delete item" ><input type="submit" value="🗑️" id="delete_item" class="cursor-pointer"></td>
+              </tr>
+
+              
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 text-right">
+          <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg" id="add_item_button">+ Add Item</button>
+        </div>
+      </section>
+  
+      <!-- 💵 Totals Section -->
+      <section>
+        <div class="flex flex-col items-end space-y-2 text-sm text-gray-700">
+          <div class="flex gap-4">
+            <span class="font-medium">Subtotal:</span>
+            <span>$0.00</span>
+          </div>
+          <div class="flex gap-4">
+            <span class="font-medium">Tax:</span>
+            <span>$0.00</span>
+          </div>
+          <div class="flex gap-4">
+            <span class="font-medium">Discount:</span>
+            <span>$0.00</span>
+          </div>
+          <div class="flex gap-4 text-lg font-bold pt-4 border-t mt-4">
+            <span>Total:</span>
+            <span>$0.00</span>
+          </div>
+        </div>
+      </section>
+  
+      <!-- 📝 Additional Info and Signature -->
+      <section class="space-y-6">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-700 mb-2">Additional Information</h2>
+          <textarea class="border rounded-lg p-3 w-full" rows="4" placeholder="Additional notes or terms..."></textarea>
+        </div>
+  
+        <!-- ✍️ Signature -->
+        <div>
+          <h3 class="text-sm font-semibold text-gray-600 mb-2">Signature</h3>
+          <div class="border-2 border-dashed border-gray-300 rounded-lg h-32 flex items-center justify-center">
+            <p class="text-gray-400">Click to sign</p>
+          </div>
+        </div>
+      </section>
+  
+      <!-- ✅ Buttons -->
+      <div class="flex justify-end pt-6">
+        <div class="flex space-x-4">
+          <button class="border-2 border-blue-500 w-24 rounded-md py-2 hover:bg-blue-50">Draft</button>
+          <button class="border-2 border-blue-500 w-36 rounded-md py-2 hover:bg-blue-50">Generate Invoice</button>  
+        </div>
+      </div>
+  
+    </div>
+  
+  </div>
+  
+<script src="../JavaScript/createInvoice.js"></script>
+</body>
+</html>

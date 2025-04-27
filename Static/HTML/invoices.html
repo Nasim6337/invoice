@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ sidebarOpen: false }" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invoices</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script>
+  $(function () {
+      $("#header").load("header.html");         
+
+  });
+  
+</script>
+</head>
+<body class="bg-gray-100 flex md:flex-row flex-col ">
+  <aside id="header" ></aside>
+  <div class=" md:mx-4 bg-white md:w-[80vw] p-8 rounded-lg shadow-md space-y-6" >
+    
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">Invoices</h1>
+        <p class="text-gray-500 text-sm">Manage and track all your invoices</p>
+      </div>
+      <button class="flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+        + New Invoice
+      </button>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
+      <input type="text" placeholder="Search invoices..." class="w-full md:w-1/3 border rounded-lg p-3" />
+      <select class="border rounded-lg p-3 w-full md:w-1/6">
+        <option>Status</option>
+        <option>Paid</option>
+        <option>Pending</option>
+        <option>Overdue</option>
+      </select>
+      <select class="border rounded-lg p-3 w-full md:w-1/6">
+        <option>Date Range</option>
+        <option>Last 7 Days</option>
+        <option>Last 30 Days</option>
+        <option>Last Year</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto  overflow-y-auto md:h-[55vh]">
+      <table class="w-full text-sm text-left text-gray-700 mt-6">
+        <thead class="bg-gray-100 uppercase text-xs">
+          <tr>
+            <th class="py-3 px-4">Invoice</th>
+            <th class="py-3 px-4">Client</th>
+            <th class="py-3 px-4">Amount</th>
+            <th class="py-3 px-4">Date</th>
+            <th class="py-3 px-4">Status</th>
+            <th class="py-3 px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Row 1 -->
+          <tr class="border-b">
+            <td class="py-3 px-4 font-bold text-blue-600">#INV-2023001</td>
+            <td class="py-3 px-4">Acme Corporation</td>
+            <td class="py-3 px-4 font-bold">$2,500.00</td>
+            <td class="py-3 px-4">2023-06-15</td>
+            <td class="py-3 px-4">
+              <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">Paid</span>
+            </td>
+            <td class="py-3 px-4 space-x-2">
+              <a href="#" class="text-blue-600 hover:underline">View</a>
+              <a href="#" class="text-blue-600 hover:underline">Edit</a>
+              <a href="#" class="text-red-600 hover:underline">Delete</a>
+            </td>
+          </tr>         
+
+        </tbody>
+      </table>
+    </div>
+
+  
+
+      
+
+    <!-- Pagination -->
+    <div class="flex items-center justify-between mt-6">
+      <div class="text-sm text-gray-600">
+        Showing 1 to 10 of 20 results
+      </div>
+      <div class="flex space-x-2">
+        <button class="px-3 py-1 rounded-md border text-gray-500 hover:bg-gray-100">Previous</button>
+        <button class="px-3 py-1 rounded-md border bg-blue-600 text-white">1</button>
+        <button class="px-3 py-1 rounded-md border bg-blue-50 text-blue-600">2</button>
+        <button class="px-3 py-1 rounded-md border text-gray-500 hover:bg-gray-100">3</button>
+        <button class="px-3 py-1 rounded-md border text-gray-500 hover:bg-gray-100">Next</button>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
