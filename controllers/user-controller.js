@@ -3,7 +3,8 @@ const bcrypt=require('bcrypt')
 const path=require('path')
 const jwt=require('jsonwebtoken');
 const register=async(req,res)=>{
-    const {name,email,password}=req.body;
+    const {name,email,password,confirmPassword}=req.body;
+    
     if(!name || !email || !password){
        return  res.status(404).json({
             status:false,
@@ -12,6 +13,11 @@ const register=async(req,res)=>{
         
     }
 
+    if(password!=confirmPassword)
+        return res.json({
+            message:"password and confirm password not matched"
+    })
+
     if(await userModel.findOne({email})){
         return res.status(500).json({
             status:false,
@@ -19,7 +25,7 @@ const register=async(req,res)=>{
         })
     }
 
-    if(password.length()<8){
+    if(password.length<8){
        return res.status(403).json({
         status:false,
         message:"please enter at least 8 character Password"
@@ -38,6 +44,9 @@ const register=async(req,res)=>{
                     email,
                     password:hashed
                 });
+
+                if(createdUser)
+                    return res.sendFile(path.join(__dirname,"../Static/HTML","login.html"))
                 
             }
             catch(error){
