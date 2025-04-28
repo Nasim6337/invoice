@@ -1,46 +1,111 @@
 const ItemBody=document.getElementById('add_item');
 let addItemButton=document.getElementById('add_item_button');
 
-
-
+//adding rows
 addItemButton.addEventListener('click',()=>{
     let item=document.createElement('tr');
-    item.id="item_cell"
+    item.className="item_cell"
     item.innerHTML=`
-    
+     
+                <td class="py-2 px-4" >
+                  
+                  <input type="text" class="border rounded-lg p-2 w-full" placeholder="Description"></td>
+
+                <td class="py-2 px-4"><input type="number" id="qnt" class=" border quantity  rounded-lg p-2 w-full" placeholder="0"></td>
+
+                <td class="py-2 px-4"><input type="number" class=" unitPrice border rounded-lg p-2 w-full" placeholder="$0.00"></td>
+
+                <td class="py-2 px-4"><input type="number" class=" cgst border rounded-lg p-2 w-full" placeholder="0%"></td>
+
+                <td class="py-2 px-4"><input type="number" class=" sgst border rounded-lg p-2 w-full" placeholder="0%"></td>
+
+                <td class="py-2 px-4"><input type="number" class=" discount border rounded-lg p-2 w-full" placeholder="$0.00"></td>
+
+                <td class=" total py-2 px-4 text-gray-800 font-medium">$0.00</td>
+
+                <td class="py-2 px-4 text-red-500 cursor-pointer" title="delete item" ><input type="submit" value="🗑️" id="" class="cursor-pointer delete_item"></td>
               
-                <td class="py-2 px-4" id="item_cell"><input type="text" class="border rounded-lg p-2 w-full" placeholder="Description"></td>
-                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="0"></td>
-                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="$0.00"></td>
-                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="0%"></td>
-                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="$0.00"></td>
-                <td class="py-2 px-4 text-gray-800 font-medium">$0.00</td>
-                  <td class="py-2 px-4 text-red-500 cursor-pointer" title="delete item" ><input type="submit" value="🗑️" id="delete_item" class="cursor-pointer"></td>
-              
-    `;
+    `
     ItemBody.appendChild(item);
-
+    attachDeleteEvents();
+    calculateTotal()
+    grandCalculateTotal();
 })
 
-let totalRow=document.querySelectorAll('item_cell');
+//deleting row 
+function attachDeleteEvents() {
+    const deleteButtons = document.querySelectorAll('.delete_item');
+    deleteButtons.forEach((btn) => {
+        btn.onclick = function () {
+            const row = this.closest('tr'); 
+            row.remove(); 
+        }
+    });
+}
+//calculating total value for every row
+function calculateTotal(){
+    let inputs=document.querySelectorAll('.quantity, .unitPrice, .cgst, .sgst, .discount');
 
-let totalDeleteButton=document.querySelectorAll('delete_item');
+    inputs.forEach((input)=>{
+        input.addEventListener('input',function (){
+            const row = this.closest('tr'); 
+            let tds=row.children;
+            let quantity=parseFloat(row.querySelector('.quantity')?.value) ||0;
+            let unitPrice=parseFloat(row.querySelector('.unitPrice')?.value)||0;
+            let cgst=parseFloat(row.querySelector('.cgst')?.value)||0;
+            let sgst=parseFloat(row.querySelector('.sgst')?.value)||0;
+            
+            let discount= parseFloat(row.querySelector('.discount')?.value)|| 0;
+            
 
-
-totalDeleteButton.forEach((deleteButton,index)=>{   
-    deleteButton.addEventListener('click',()=>{
-        let deleteButtonIndex=index;
-        totalRow.forEach((row,index)=>{
-            if(deleteButtonIndex===index){
-                console.log("matched ")
-            }
-            else
-            console.log("not matched")
+            let t_mt=quantity*unitPrice;
+            let total=t_mt+((t_mt*(cgst+sgst))/100)-discount;
+            
+            row.querySelector('.total').innerHTML=`${total}`
+            grandCalculateTotal();
         })
-
+       
+        
     })
-   
-})
+    
+
+}
+    //calculating grand total value
+function grandCalculateTotal() {
+    let rows = document.querySelectorAll('.item_cell');
+    let subTotal = document.getElementById('Subtotal');
+    let SubDiscount = document.getElementById('subDiscount');
+    let GrandTotal = document.getElementById('GrandTotal');
+
+    let total = 0;
+    let discount = 0;
+
+    rows.forEach(row => {
+        let td_ttl = row.querySelector('.total');
+        let dsc = row.querySelector('.discount');
+
+        if (td_ttl && dsc) {
+            let ttlText = td_ttl.innerHTML.replace('$', '');
+            let ttl = parseFloat(ttlText) || 0;
+            total += ttl;
+
+            let dsct = parseFloat(dsc.value) || 0;
+            discount += dsct;
+        }
+    });
+
+    subTotal.innerHTML = `$${(total + discount).toFixed(2)}`;
+    SubDiscount.innerHTML = `$${discount.toFixed(2)}`;
+    GrandTotal.innerHTML = `$${total.toFixed(2)}`;
+}
+
+
+calculateTotal()
+
+
+
+
+
 
 
 

@@ -68,29 +68,33 @@
                 <th class="py-2 px-4 text-left">Item Description</th>
                 <th class="py-2 px-4 text-left">Quantity</th>
                 <th class="py-2 px-4 text-left">Unit Price</th>
-                <th class="py-2 px-4 text-left">Tax (%)</th>
+                <th class="py-2 px-4 text-left">CGST(%)</th>
+                <th class="py-2 px-4 text-left">SGST(%)</th>
                 <th class="py-2 px-4 text-left">Discount</th>
                 <th class="py-2 px-4 text-left">Total</th>
                 <th class="py-2 px-4"></th>
               </tr>
             </thead>
             <tbody id="add_item" >
-              <tr id="item_cell">
+
+              <tr class="item_cell">
                 <td class="py-2 px-4" >
                   
                   <input type="text" class="border rounded-lg p-2 w-full" placeholder="Description"></td>
 
-                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="0"></td>
+                <td class="py-2 px-4"><input type="number" id="qnt" class=" border quantity  rounded-lg p-2 w-full" placeholder="0"></td>
 
-                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="$0.00"></td>
+                <td class="py-2 px-4"><input type="number" class=" unitPrice border rounded-lg p-2 w-full" placeholder="$0.00"></td>
 
-                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="0%"></td>
+                <td class="py-2 px-4"><input type="number" class=" cgst border rounded-lg p-2 w-full" placeholder="0%"></td>
 
-                <td class="py-2 px-4"><input type="number" class="border rounded-lg p-2 w-full" placeholder="$0.00"></td>
+                <td class="py-2 px-4"><input type="number" class=" sgst border rounded-lg p-2 w-full" placeholder="0%"></td>
 
-                <td class="py-2 px-4 text-gray-800 font-medium">$0.00</td>
+                <td class=" discount_td py-2 px-4"><input type="number" class=" discount border rounded-lg p-2 w-full" placeholder="$0.00"></td>
 
-                <td class="py-2 px-4 text-red-500 cursor-pointer" title="delete item" ><input type="submit" value="🗑️" id="delete_item" class="cursor-pointer"></td>
+                <td class=" total py-2 px-4 text-gray-800 font-medium">$0.00</td>
+
+                <td class="py-2 px-4 text-red-500 cursor-pointer" title="delete item" ><input type="submit" value="🗑️" id="" class="cursor-pointer delete_item"></td>
               </tr>
 
               
@@ -106,20 +110,17 @@
       <section>
         <div class="flex flex-col items-end space-y-2 text-sm text-gray-700">
           <div class="flex gap-4">
-            <span class="font-medium">Subtotal:</span>
-            <span>$0.00</span>
+            <span class="font-medium" >Subtotal:</span>
+            <span id="Subtotal">$0.00</span>
           </div>
+         
           <div class="flex gap-4">
-            <span class="font-medium">Tax:</span>
-            <span>$0.00</span>
-          </div>
-          <div class="flex gap-4">
-            <span class="font-medium">Discount:</span>
-            <span>$0.00</span>
+            <span class="font-medium" >Discount:</span>
+            <span id="subDiscount">$0.00</span>
           </div>
           <div class="flex gap-4 text-lg font-bold pt-4 border-t mt-4">
             <span>Total:</span>
-            <span>$0.00</span>
+            <span id="GrandTotal">$0.00</span>
           </div>
         </div>
       </section>
