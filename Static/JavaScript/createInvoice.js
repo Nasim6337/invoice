@@ -103,7 +103,38 @@ function grandCalculateTotal() {
 calculateTotal()
 
 
-
+function openTemplateModal() {
+    document.getElementById('templateModal').classList.remove('hidden');
+  }
+  
+  function closeTemplateModal() {
+    document.getElementById('templateModal').classList.add('hidden');
+  }
+  let templateId
+  function confirmTemplate() {
+    const selected = document.querySelector('input[name="template"]:checked');
+    if (!selected) {
+      alert("Please select a template to continue.");
+      return;
+    }
+  
+ templateId = selected.value;
+    console.log("Selected Template:", templateId);
+  
+    // Now continue invoice generation using selected template
+    // Either send invoice data + templateId to backend
+    // Or preview/download it using a redirect/fetch
+  
+    closeTemplateModal();
+    alert("Invoice will be generated with template: " + templateId);
+  
+    // Example: POST to backend or redirect to download
+    // fetch('/api/invoices/generate', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ templateId, ...otherInvoiceData })
+    // })
+  }
+  
 
 
 

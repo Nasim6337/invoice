@@ -1,17 +1,14 @@
-const jwt=require('jsonwebtoken');
-const path=require('path');
-const loginAuthenticator=async(req,res,next)=>{
-    let token=req.cookies.token;
-    if (!token) {
-        return res.redirect('http://localhost:3000/api-v1/user/login');
-    }
-    else{
-        try{
-            let verified_data=jwt.verify(token,process.env.JWT_TOKEN);
-            req.userCookies=verified_data;
-        }catch(err){console.log("token verification error",err.message)}
-    }
-    next();
-}
+const jwt = require('jsonwebtoken');
+const User = require('../models/user-model');
 
-module.exports=loginAuthenticator;
+exports.protect = async (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'No token' });
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id).select('-password');
+    next();
+  } catch {
+    res.status(401).json({ error: 'Token failed' });
+  }
+};

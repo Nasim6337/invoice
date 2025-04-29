@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    .invoice-box {
+      background: #fff;
+      padding: 30px;
+      border: 1px solid #eee;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .company-details, .client-details {
+      font-size: 14px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    .totals {
+      margin-top: 20px;
+      float: right;
+      width: 300px;
+    }
+    .totals table {
+      border: none;
+    }
+    .totals td {
+      border: none;
+      padding: 6px 0;
+    }
+    .notes {
+      margin-top: 60px;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-box">
+    <div class="header">
+      <div class="company-details">
+        <h2>My Company</h2>
+        <p>123 Business Rd.<br>City, Country<br>Email: contact@mycompany.com</p>
+      </div>
+      <div class="client-details">
+        <h3>Invoice To:</h3>
+        <p>Client Name<br>456 Client St.<br>Client City, Country<br>Email: client@example.com</p>
+        <p><strong>Invoice #:</strong> INV-001<br><strong>Date:</strong> April 29, 2025</p>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Design Work</td>
+          <td>10</td>
+          <td>$50</td>
+          <td>$500</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Development</td>
+          <td>8</td>
+          <td>$60</td>
+          <td>$480</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <table>
+        <tr>
+          <td><strong>Subtotal:</strong></td>
+          <td>$980</td>
+        </tr>
+        <tr>
+          <td><strong>Tax (10%):</strong></td>
+          <td>$98</td>
+        </tr>
+        <tr>
+          <td><strong>Total:</strong></td>
+          <td><strong>$1078</strong></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="notes">
+      <p><strong>Notes:</strong> Thank you for your business. Please make the payment by the due date. Late payments may be subject to fees.</p>
+    </div>
+  </div>
+</body>
+</html>
