@@ -69,13 +69,23 @@
   <div class="invoice-box">
     <div class="header">
       <div class="company-details">
-        <h2>My Company</h2>
-        <p>123 Business Rd.<br>City, Country<br>Email: contact@mycompany.com</p>
+        <h2><%= invoice.businessName || 'My Company' %></h2>
+        <p>
+          <%= invoice.businessAddress || '123 Business Rd.<br>City, Country' %><br>
+          Email: <%= invoice.businessEmail || 'contact@mycompany.com' %>
+        </p>
       </div>
       <div class="client-details">
         <h3>Invoice To:</h3>
-        <p>Client Name<br>456 Client St.<br>Client City, Country<br>Email: client@example.com</p>
-        <p><strong>Invoice #:</strong> INV-001<br><strong>Date:</strong> April 29, 2025</p>
+        <p>
+          <%= invoice.clientName %><br>
+          <%= invoice.clientAddress || '456 Client St.<br>Client City, Country' %><br>
+          Email: <%= invoice.clientEmail || 'client@example.com' %>
+        </p>
+        <p>
+          <strong>Invoice #:</strong> <%= invoice._id %><br>
+          <strong>Date:</strong> <%= new Date(invoice.createdAt).toLocaleDateString() %>
+        </p>
       </div>
     </div>
 
@@ -90,20 +100,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Design Work</td>
-          <td>10</td>
-          <td>$50</td>
-          <td>$500</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Development</td>
-          <td>8</td>
-          <td>$60</td>
-          <td>$480</td>
-        </tr>
+        <% invoice.items.forEach((item, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= item.description %></td>
+            <td><%= item.quantity %></td>
+            <td>₹<%= item.price.toFixed(2) %></td>
+            <td>₹<%= (item.price * item.quantity).toFixed(2) %></td>
+          </tr>
+        <% }) %>
       </tbody>
     </table>
 
@@ -111,21 +116,21 @@
       <table>
         <tr>
           <td><strong>Subtotal:</strong></td>
-          <td>$980</td>
+          <td>₹<%= invoice.items.reduce((sum, i) => sum + (i.quantity * i.price), 0).toFixed(2) %></td>
         </tr>
         <tr>
-          <td><strong>Tax (10%):</strong></td>
-          <td>$98</td>
+          <td><strong>Tax:</strong></td>
+          <td>--</td>
         </tr>
         <tr>
           <td><strong>Total:</strong></td>
-          <td><strong>$1078</strong></td>
+          <td><strong>₹<%= invoice.totalAmount.toFixed(2) %></strong></td>
         </tr>
       </table>
     </div>
 
     <div class="notes">
-      <p><strong>Notes:</strong> Thank you for your business. Please make the payment by the due date. Late payments may be subject to fees.</p>
+      <p><strong>Notes:</strong> <%= invoice.notes || 'Thank you for your business. Please make the payment by the due date.' %></p>
     </div>
   </div>
 </body>

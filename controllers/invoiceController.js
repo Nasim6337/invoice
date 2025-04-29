@@ -7,7 +7,7 @@ exports.createInvoice = async (req, res) => {
   const { clientName, items, template } = req.body;
   const totalAmount = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
   const invoice = new Invoice({
-    userId: req.user.id,
+   // userId: req.user.id,
     clientName,
     items,
     totalAmount,
@@ -33,15 +33,22 @@ exports.getInvoices = async (req, res) => {
 };
 
 exports.generatePDF = async (req, res) => {
-    const invoice = await Invoice.findById(req.params.id).populate('userId');
-    if (!invoice) return res.status(404).json({ error: 'Invoice not found' });
-  
+  const { clientName, items, template } = req.body;
+  const totalAmount = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  const invoice = new Invoice({
+   // userId: req.user.id,
+    clientName,
+    items,
+    totalAmount,
+    template
+  });
+  await invoice.save();
     // Render EJS template to HTML
     const html = await ejs.renderFile(
-      path.join(__dirname, '../templates/template1.ejs'),
+      path.join(__dirname, `../templates/${template}.ejs`),
       { invoice }
     );
-  
+    
     // Launch Puppeteer and create PDF
     const browser = await puppeteer.launch();
     const page = await browser.newPage();

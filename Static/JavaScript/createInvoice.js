@@ -120,7 +120,7 @@ function openTemplateModal() {
   
  templateId = selected.value;
     console.log("Selected Template:", templateId);
-  
+    generateInvoice()
     // Now continue invoice generation using selected template
     // Either send invoice data + templateId to backend
     // Or preview/download it using a redirect/fetch
@@ -138,7 +138,51 @@ function openTemplateModal() {
 
 
 
-
+  async function generateInvoice() {
+    const clientName = document.querySelector('input[placeholder="Business Name"]').value;
+  
+    const itemRows = document.querySelectorAll('#add_item .item_cell');
+    const items = [];
+  
+    itemRows.forEach(row => {
+      const description = row.querySelector('input[placeholder="Description"]').value;
+      const quantity = parseFloat(row.querySelector('.quantity').value);
+      const price = parseFloat(row.querySelector('.unitPrice').value);
+      const cgst = parseFloat(row.querySelector('.cgst').value);
+      const sgst = parseFloat(row.querySelector('.sgst').value);
+      const discount = parseFloat(row.querySelector('.discount').value);
+      
+      items.push({ description, quantity, price, cgst, sgst, discount });
+    });
+  
+    const payload = {
+      clientName,
+      items,
+      template:  'template1' // default fallback
+    };
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/invoices', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+  
+      const blob = await response.blob();
+      const downloadUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'invoice.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      console.error('Error generating invoice:', err);
+    }
+  }
+  
 
 
 
