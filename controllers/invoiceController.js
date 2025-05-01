@@ -32,34 +32,47 @@ exports.getInvoices = async (req, res) => {
   res.json(invoices);
 };
 
+
+
+
 exports.generatePDF = async (req, res) => {
-  const { clientName, items, template } = req.body;
-  const totalAmount = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
-  const invoice = new Invoice({
-   // userId: req.user.id,
-    clientName,
-    items,
-    totalAmount,
-    template
-  });
-  await invoice.save();
-    // Render EJS template to HTML
+  console.log(" inside backend")
+  try {
+    const { clientName, items, template } = req.body;
+    const totalAmount = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+
+    const invoice = new Invoice({
+      clientName,
+      items,
+      totalAmount,
+      template,
+    });
+
+    await invoice.save();
+  console.log(invoice)
     const html = await ejs.renderFile(
       path.join(__dirname, `../templates/${template}.ejs`),
       { invoice }
     );
+    const fs = require('fs');
+    fs.writeFileSync('debug.html', html);
     
-    // Launch Puppeteer and create PDF
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
+
     await page.setContent(html, { waitUntil: 'networkidle0' });
-  
-    const pdfBuffer = await page.pdf({ format: 'A4' });
-  
+
+    const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true });
+
     await browser.close();
-  
+
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename=invoice-${invoice._id}.pdf`);
     res.send(pdfBuffer);
-  };
+  } catch (error) {
+    console.error('PDF generation error:', error);
+    res.status(500).send('Failed to generate PDF');
+  }
+};
+
   
