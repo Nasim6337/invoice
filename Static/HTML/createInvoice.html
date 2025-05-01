@@ -32,15 +32,16 @@
         <h1 class="text-2xl font-bold text-gray-800">Create New Invoice</h1>
         <p class="text-gray-500">Fill in the details below to generate your invoice</p>
       </div>
-  
+      
+      <form action="" method="post"></form>
       <!-- 🏢 Business Information -->
       <section class="space-y-4">
         <h2 class="text-lg font-semibold text-gray-700">Business Information</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input type="text" placeholder="Business Name" class="border rounded-lg p-3 w-full">
-          <input type="email" placeholder="Business Email" class="border rounded-lg p-3 w-full">
-          <textarea placeholder="Business Address" class="border rounded-lg p-3 w-full md:col-span-1" rows="3"></textarea>
-          <input type="text" placeholder="Phone Number" class="border rounded-lg p-3 w-full">
+          <input name="BusinessName" type="text" placeholder="Business Name" class="border rounded-lg p-3 w-full">
+          <input name="BusinessEmail" type="email" placeholder="Business Email" class="border rounded-lg p-3 w-full">
+          <textarea name="BusinessAddress" placeholder="Business Address" class="border rounded-lg p-3 w-full md:col-span-1" rows="3"></textarea>
+          <input name="BusinessPhoneNumber" type="text" placeholder="Phone Number" class="border rounded-lg p-3 w-full">
         </div>
   
         <!-- 📷 Business Logo Upload -->
@@ -53,7 +54,7 @@
                 <path d="M6 30l12-12 8 8 12-12 8 8v18H6z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               <p class="text-sm text-gray-600">Upload a file</p>
-              <input type="file" name="Upload_logo" id="Upload_logo" class="cursor-pointer">
+              <input type="file" name="BusinessLogo" id="Upload_logo" class="cursor-pointer">
             </div>
           </div>
         </div>
@@ -81,19 +82,19 @@
               <tr class="item_cell">
                 <td class="py-2 px-4" >
                   
-                  <input type="text" class="border rounded-lg p-2 w-full" placeholder="Description"></td>
+                  <input type="text" name="ItemDescription" class="border rounded-lg p-2 w-full" placeholder="Description"></td>
 
-                <td class="py-2 px-4"><input type="number" id="qnt" class=" border quantity  rounded-lg p-2 w-full" placeholder="0"></td>
+                <td class="py-2 px-4"><input name="ItemQuantity" type="number" id="qnt" class=" border quantity  rounded-lg p-2 w-full" placeholder="0"></td>
 
-                <td class="py-2 px-4"><input type="number" class=" unitPrice border rounded-lg p-2 w-full" placeholder="$0.00"></td>
+                <td class="py-2 px-4"><input name="ItemUnitPrice" type="number" class=" unitPrice border rounded-lg p-2 w-full" placeholder="$0.00"></td>
 
-                <td class="py-2 px-4"><input type="number" class=" cgst border rounded-lg p-2 w-full" placeholder="0%"></td>
+                <td class="py-2 px-4"><input type="number" name="ItemCGST" class=" cgst border rounded-lg p-2 w-full" placeholder="0%"></td>
 
-                <td class="py-2 px-4"><input type="number" class=" sgst border rounded-lg p-2 w-full" placeholder="0%"></td>
+                <td class="py-2 px-4"><input type="number" name="ItemSGST" class=" sgst border rounded-lg p-2 w-full" placeholder="0%"></td>
 
-                <td class=" discount_td py-2 px-4"><input type="number" class=" discount border rounded-lg p-2 w-full" placeholder="$0.00"></td>
+                <td class=" discount_td py-2 px-4"><input name="ItemDiscount" type="number" class=" discount border rounded-lg p-2 w-full" placeholder="$0.00"></td>
 
-                <td class=" total py-2 px-4 text-gray-800 font-medium">$0.00</td>
+                <td class="total py-2 px-4 text-gray-800 font-medium">$0.00</td>
 
                 <td class="py-2 px-4 text-red-500 cursor-pointer" title="delete item" ><input type="submit" value="🗑️" id="" class="cursor-pointer delete_item"></td>
               </tr>
@@ -146,9 +147,10 @@
       <div class="flex justify-end pt-6">
         <div class="flex space-x-4">
           <button class="border-2 border-blue-500 w-24 rounded-md py-2 hover:bg-blue-50">Draft</button>
-          <button class="border-2 border-blue-500 w-36 rounded-md py-2 hover:bg-blue-50">Generate Invoice</button>  
+          <input type="submit" value="Generate Invoice" class=" cursor-pointer border-2 border-blue-500 w-36 rounded-md py-2 hover:bg-blue-50"/>  
         </div>
       </div>
+    </form>
   
     </div>
   

@@ -46,7 +46,7 @@ const register=async(req,res)=>{
                 });
 
                 if(createdUser)
-                    return res.sendFile(path.join(__dirname,"../Static/HTML","login.html"))
+                    return res.redirect('http://localhost:3000/api-v1/user/login')
                 
             }
             catch(error){
@@ -67,7 +67,7 @@ const login=async(req,res)=>{
 
     let user=await userModel.findOne({email});
     if(!user){
-        return  res.sendFile(path.join(__dirname,'../Static/HTML','register.html'));
+        return  res.redirect('http://localhost:3000/api-v1/user/register')
 
 }
 
@@ -91,5 +91,6 @@ const login=async(req,res)=>{
     
     
 }
+
 
 module.exports={register,login};
