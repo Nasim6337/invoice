@@ -139,7 +139,7 @@ function openTemplateModal() {
 
 
   async function generateInvoice() {
-    console.log("anuj")
+    
     const clientName = document.querySelector('input[placeholder="Business Name"]').value;
   
     const itemRows = document.querySelectorAll('#add_item .item_cell');

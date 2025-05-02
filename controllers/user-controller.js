@@ -1,49 +1,50 @@
 const User = require('../models/user-model');
 
-exports.getProfile = async (req, res) => {
+getProfile = async (req, res) => {
   const user = await User.findById(req.user.id).select('-password');
   res.json(user);
 };
 
-exports.updateProfile = async (req, res) => {
+updateProfile = async (req, res) => {
   const updates = req.body;
   const user = await User.findByIdAndUpdate(req.user.id, updates, { new: true });
+  await user.save();
   res.json(user);
 };
 
-<<<<<<< HEAD
-    if(password.length<8){
-       return res.status(403).json({
-        status:false,
-        message:"please enter at least 8 character Password"
-    })
+
+//     if(password.length<8){
+//        return res.status(403).json({
+//         status:false,
+//         message:"please enter at least 8 character Password"
+//     })
     
-    }
+//     }
 
-    bcrypt.hash(password,12,async(err,hashed)=>{
-        if(err)
-            console.log(err.message)
-        else
-        {
-            try{
-                let createdUser=await userModel.create({
-                    name,
-                    email,
-                    password:hashed
-                });
+//     bcrypt.hash(password,12,async(err,hashed)=>{
+//         if(err)
+//             console.log(err.message)
+//         else
+//         {
+//             try{
+//                 let createdUser=await userModel.create({
+//                     name,
+//                     email,
+//                     password:hashed
+//                 });
 
-                if(createdUser)
-                    return res.redirect('http://localhost:3000/api-v1/user/login')
+//                 if(createdUser)
+//                     return res.redirect('http://localhost:3000/api-v1/user/login')
                 
-            }
-            catch(error){
-                console.log("something went wrong in registering process",error.message)
-            }
-        }
-    })
+//             }
+//             catch(error){
+//                 console.log("something went wrong in registering process",error.message)
+//             }
+//         }
+//     })
 
 
-}
+// }
 
 const login=async(req,res)=>{
     
@@ -80,9 +81,9 @@ const login=async(req,res)=>{
 }
 
 
-module.exports={register,login};
-=======
-exports.searchUsers = async (req, res) => {
+
+
+searchUsers = async (req, res) => {
   const { q } = req.query;
   const users = await User.find({
     name: { $regex: q, $options: 'i' },
@@ -90,4 +91,6 @@ exports.searchUsers = async (req, res) => {
   }).select('name email');
   res.json(users);
 };
->>>>>>> b3e9adb85d8503c687a7dbdf27a7b387a83a9054
+
+module.exports={login,getProfile,updateProfile,searchUsers};
+
