@@ -25,8 +25,9 @@
       <div>
         <h1 class="text-2xl font-bold text-gray-800">Profile</h1>
         <p class="text-gray-500 text-sm">Manage your personal information and settings</p>
-      </div>
-      <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+      </div >
+     
+      <button id="editProfile" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
         Edit Profile
       </button>
     </div>
@@ -36,27 +37,27 @@
 
       <!-- Avatar -->
       <div class="flex-shrink-0">
-        <img class="w-28 h-28 rounded-full object-cover border-2 border-blue-600" src="https://i.pravatar.cc/150?img=3" alt="Profile Photo">
+        <img id="profileImage" class="w-28 h-28 rounded-full object-cover border-2 border-blue-600" src="https://i.pravatar.cc/150?img=3" alt="Profile Photo">
       </div>
 
       <!-- Personal Info -->
       <div class="space-y-4">
         <div>
-          <h2 class="text-lg font-semibold text-gray-700">John Doe</h2>
-          <p class="text-gray-500 text-sm">john.doe@example.com</p>
+          <h2 id="UserName" class="text-lg font-semibold text-gray-700">John Doe</h2>
+          <p id="userEmail" class="text-gray-500 text-sm">john.doe@example.com</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <p class="text-gray-400 text-xs uppercase mb-1">Phone</p>
-            <p class="text-gray-700">+1 234 567 890</p>
+            <p id="userNumber" class="text-gray-700">+1 234 567 890</p>
           </div>
           <div>
             <p class="text-gray-400 text-xs uppercase mb-1">Address</p>
-            <p class="text-gray-700">123 Main St, New York, USA</p>
+            <p id="userAddress" class="text-gray-700">123 Main St, New York, USA</p>
           </div>
           <div>
             <p class="text-gray-400 text-xs uppercase mb-1">Joined</p>
-            <p class="text-gray-700">March 10, 2022</p>
+            <p id="joinDate" class="text-gray-700">March 10, 2022</p>
           </div>
           <div>
             <p class="text-gray-400 text-xs uppercase mb-1">Role</p>
@@ -73,15 +74,15 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="p-6 bg-gray-50 rounded-lg shadow-sm text-center">
           <p class="text-gray-500 text-sm">Total Invoices</p>
-          <h3 class="text-2xl font-bold mt-2">120</h3>
+          <h3 id="totalInvoices" class="text-2xl font-bold mt-2">120</h3>
         </div>
         <div class="p-6 bg-gray-50 rounded-lg shadow-sm text-center">
           <p class="text-gray-500 text-sm">Paid</p>
-          <h3 class="text-2xl font-bold text-green-600 mt-2">95</h3>
+          <h3 id="paidInvoices" class="text-2xl font-bold text-green-600 mt-2">95</h3>
         </div>
         <div class="p-6 bg-gray-50 rounded-lg shadow-sm text-center">
           <p class="text-gray-500 text-sm">Pending</p>
-          <h3 class="text-2xl font-bold text-yellow-600 mt-2">25</h3>
+          <h3  id="pendingInvoices" class="text-2xl font-bold text-yellow-600 mt-2">25</h3>
         </div>
       </div>
     </div>
@@ -128,13 +129,22 @@
             <h4 class="font-semibold text-gray-700">Delete Account</h4>
             <p class="text-gray-500 text-sm">Permanently remove your account</p>
           </div>
-          <button class="text-red-600 hover:underline font-semibold">Delete</button>
+          <button id="deleteButton" class="text-red-600 hover:underline font-semibold">Delete</button>
+        </div>
+
+        
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm">
+          <div>
+            <h4 class="font-semibold text-gray-700">Log out from  Account</h4>
+            <p class="text-gray-500 text-sm">LogOut from your account</p>
+          </div>
+          <button id="logOut" class="text-red-600 hover:underline font-semibold">LogOut</button>
         </div>
 
       </div>
     </div>
 
   </div>
-
+<script src="../JavaScript/profile.js"></script>
 </body>
 </html>

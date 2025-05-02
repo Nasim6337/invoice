@@ -11,7 +11,7 @@ const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString()
 
 // Send OTP for Signup
 exports.sendSignupOTP = async (req, res) => {
-  const { name, email, password,accountNumber,ifscCode,bankName } = req.body;
+  const { name, email, password,accountNumber,ifscCode,bankName,phone } = req.body;
   console.log(req.body)
 
   if (!name || !email || !password) {
@@ -30,6 +30,7 @@ exports.sendSignupOTP = async (req, res) => {
       name,
       email,
       otp,
+      phone,
       bankDetails: {
         accountNumber,
         ifsc: ifscCode,

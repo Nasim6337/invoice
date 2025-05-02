@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   phone:{
     type:String,
+    default:"+918007656432"
   },
   password: String,
   otp: String,
@@ -14,6 +15,30 @@ const userSchema = new mongoose.Schema({
     ifsc: String,
     bankName: String
   },
+  totalInvoices: {
+    type: [mongoose.Schema.Types.ObjectId], 
+    ref: 'Invoice',
+    default: []
+  },
+  paidInvoices:{
+    type:Number,
+    default:0
+  },
+  pendingInvoices:{
+    type:Number,
+    default:0
+  },
+  address:{
+    type:String,
+    default:"XYZ city-230124"
+  },
+  profilePicture:{
+    type:String,
+    default:"https://tableconvert.com/images/avatar.png"
+  }
+},
+{
+  timestamps:true
 });
 
 module.exports = mongoose.model('User', userSchema);

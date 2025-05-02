@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "Static")));
 
 // API Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
+app.use('/user', userRoutes);
 app.use('/api/invoices', invoiceRoutes);
 
 // Serve static homepage
@@ -46,6 +46,10 @@ app.get("/invoce", (req, res) => {
   app.get("/client", (req, res) => {
     res.sendFile(path.join(__dirname, 'Static',"HTML", 'client.html'));
   });
+
+  app.get("/editProfile",(req,res)=>{
+    res.sendFile(path.join(__dirname, 'Static',"HTML", 'editProfile.html'));
+  })
 
 
 
