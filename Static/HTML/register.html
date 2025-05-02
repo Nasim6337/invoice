@@ -1,46 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sign Up</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signup - Invoice App</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4F46E5'
+          },
+          animation: {
+            fadeInUp: 'fadeInUp 0.8s ease-out both'
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-
-  <div class="bg-white p-10 rounded-xl shadow-md w-full max-w-md">
-    <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Create an Account</h2>
-
-    <form class="space-y-6" action="http://localhost:3000/api-v1/user/register" method="post">
-      <div>
-        <label class="block mb-2 text-sm text-gray-600">Full Name</label>
-        <input type="text" name="name" placeholder="Enter your full name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+<body class="bg-gradient-to-r from-indigo-100 to-purple-200 min-h-screen flex items-center justify-center py-10 px-4">
+  <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-3xl animate-fadeInUp">
+    <h2 class="text-4xl font-bold mb-8 text-center text-gray-800">Sign Up for InvoiceApp</h2>
+    <form class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Full Name</label>
+          <input type="text" placeholder="Anuj devloper" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required />
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Email</label>
+          <input type="email" placeholder="john@example.com" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required />
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Password</label>
+          <input type="password" placeholder="••••••••" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required />
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Confirm Password</label>
+          <input type="password" placeholder="••••••••" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required />
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
+          <input type="tel" placeholder="+1 234 567 890" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required />
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Bank Name</label>
+          <input type="text" placeholder="ABC Bank" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required />
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Account Number</label>
+          <input type="text" placeholder="1234567890" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required />
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">IFSC Code</label>
+          <input type="text" placeholder="ABCD0123456" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Country</label>
+          <input type="text" placeholder="United States" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required />
+        </div>
       </div>
-
-      <div>
-        <label class="block mb-2 text-sm text-gray-600">Email Address</label>
-        <input type="email" name="email" placeholder="Enter your email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-      </div>
-
-      <div>
-        <label class="block mb-2 text-sm text-gray-600">Password</label>
-        <input type="password" name="password" placeholder="Create a password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-      </div>
-
-      <div>
-        <label class="block mb-2 text-sm text-gray-600">Confirm Password</label>
-        <input type="password" name="confirmPassword" placeholder="Confirm your password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-      </div>
-
-      <input type="submit" value="Create Account" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-200">
-      </input>
+      <button type="submit" class="w-full mt-8 bg-primary text-white py-3 rounded-xl text-lg font-semibold hover:bg-indigo-700 transition duration-300">Create Account</button>
     </form>
-
-    <p class="text-center text-sm text-gray-600 mt-6">
-      Already have an account? 
-      <a href="http://localhost:3000/api-v1/user/login" class="text-blue-600 hover:underline font-semibold">Login</a>
-    </p>
+    <p class="text-center mt-6 text-sm text-gray-600">Already have an account? <a href="login.html" class="text-primary hover:underline">Login</a></p>
   </div>
-
 </body>
+<script src="../JavaScript/ragister.js"></script>
 </html>

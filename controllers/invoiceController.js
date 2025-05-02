@@ -122,7 +122,12 @@ exports.generatePDF = async (req, res) => {
       path.join(__dirname, `../templates/${template}.ejs`),
       { invoice }
     );
+<<<<<<< HEAD
 
+=======
+   
+    
+>>>>>>> f11df4f3e90fd33afcc783591f4b3d0e709a588e
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: 'networkidle0' });

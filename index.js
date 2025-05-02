@@ -32,6 +32,9 @@ app.get("/invoce", (req, res) => {
   app.get("/create", (req, res) => {
     res.sendFile(path.join(__dirname, 'Static',"HTML", 'createInvoice.html'));
   });
+  app.get("/ragi", (req, res) => {
+    res.sendFile(path.join(__dirname, 'Static',"HTML", 'register.html'));
+  });
   app.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, 'Static',"HTML", 'login.html'));
   });
