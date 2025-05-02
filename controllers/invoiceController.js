@@ -54,8 +54,7 @@ exports.generatePDF = async (req, res) => {
       path.join(__dirname, `../templates/${template}.ejs`),
       { invoice }
     );
-    const fs = require('fs');
-    fs.writeFileSync('debug.html', html);
+   
     
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
