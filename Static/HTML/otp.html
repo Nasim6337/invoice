@@ -111,11 +111,11 @@
     const result = await res.json();
     console.log(result)
     localStorage.setItem("token",result.token)
-    if (result.ok) {
+    document.cookie = `token=${result.token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
+
+    if (result.status) {
      // alert("OTP verified successfully!");
-      console.log(result.token)
-      
-      window.location.href = "/dashboard.html"; // Adjust based on your project
+      window.location.href = "http://localhost:5000/"; // Adjust based on your project
     } else {
       alert(result.message || "OTP verification failed!");
     }

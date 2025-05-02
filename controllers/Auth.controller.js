@@ -12,6 +12,7 @@ const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString()
 // Send OTP for Signup
 exports.sendSignupOTP = async (req, res) => {
   const { name, email, password,accountNumber,ifscCode,bankName } = req.body;
+  console.log(req.body)
 
   if (!name || !email || !password) {
     return res.status(400).json({ message: 'Name, email, and password are required' });
@@ -39,7 +40,7 @@ exports.sendSignupOTP = async (req, res) => {
     };
 
     
-    await redisClient.set(`signup:${email}`, JSON.stringify(otpData), { EX: 300 });
+    await redisClient.set(`signup:${email}`, JSON.stringify(otpData), { EX: 600 });
     await sendOTP(email, otp);
 
     res.status(200).json({ message: 'Signup OTP sent to email' });
@@ -82,10 +83,7 @@ exports.verifySignupOTP = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     if (user) {
-      user.name = name;
-      user.password = hashedPassword;
-      user.isVerified = true;
-      await user.save();
+      return res.status(403).json({status:false,message:"user already exists"});
     } else {
       user = await User.create({
         name,
@@ -133,7 +131,7 @@ exports.sendLoginOTP = async (req, res) => {
     };
 
     
-    await redisClient.setEx(`login:${email}`, 300, JSON.stringify(otpData));
+    await redisClient.setEx(`login:${email}`, 600, JSON.stringify(otpData));
 
     await sendOTP(email, otp);
 
@@ -154,6 +152,7 @@ exports.verifyLoginOTP = async (req, res) => {
 
   try {
     const data = await redisClient.get(`login:${email}`);
+      console.log(data)
     if (!data) {
       return res.status(400).json({ message: 'OTP expired or not found' });
     }
@@ -161,6 +160,7 @@ exports.verifyLoginOTP = async (req, res) => {
     let parsed;
     try {
       parsed = JSON.parse(data);
+      console.log(parsed)
     } catch {
       return res.status(500).json({ message: 'Corrupted OTP data' });
     }
@@ -185,8 +185,16 @@ exports.verifyLoginOTP = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET , {
       expiresIn: '7d',
     });
+    
+    if(token)
+    {
+        return res.status(200).json({
+        status:true,
+        message:"login successfully",
+        token
+       })
+    }
 
-    res.status(200).json({ message: 'Login successful', token });
   } catch (err) {
     console.error('Login Verification Error:', err);
     res.status(500).json({ message: 'OTP verification failed', error: err.message });
