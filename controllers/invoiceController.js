@@ -4,22 +4,59 @@ const path = require('path');
 const ejs = require('ejs');
 
 exports.createInvoice = async (req, res) => {
-  const { clientName, items, template } = req.body;
-  const totalAmount = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
-  const invoice = new Invoice({
-   // userId: req.user.id,
+  const {
     clientName,
     items,
-    totalAmount,
-    template
+    template,
+    businessName,
+    businessAddress,
+    businessPhoneNumber,
+    businessEmail,
+    businessLogo,
+    notes
+  } = req.body;
+
+  // Subtotal, discounts and tax calculations
+  let subtotal = 0;
+  let totalDiscount = 0;
+
+  items.forEach(item => {
+    const itemTotal = item.quantity * item.price;
+    subtotal += itemTotal;
+    totalDiscount += item.discount || 0;
   });
+
+  const totalAmount = items.reduce((acc, item) => {
+    const base = item.quantity * item.price;
+    const tax = base * ((item.cgst + item.sgst) / 100);
+    return acc + base + tax - (item.discount || 0);
+  }, 0);
+
+  const invoice = new Invoice({
+    clientName,
+    items,
+    template,
+    businessName,
+    businessAddress,
+    businessPhoneNumber,
+    businessEmail,
+    businessLogo,
+    notes,
+    subtotal,
+    totalDiscount,
+    totalAmount,
+    status: 'Pending', // default
+    createdAt: new Date()
+  });
+
   await invoice.save();
   res.status(201).json(invoice);
 };
 
 exports.getInvoices = async (req, res) => {
   const { name, status, days } = req.query;
-  const filters = { userId: req.user.id };
+  const filters = {}; // Add `userId: req.user.id` if needed
+
   if (name) filters.clientName = { $regex: name, $options: 'i' };
   if (status) filters.status = status;
   if (days) {
@@ -32,38 +69,65 @@ exports.getInvoices = async (req, res) => {
   res.json(invoices);
 };
 
-
-
-
 exports.generatePDF = async (req, res) => {
-  console.log(" inside backend")
   try {
-    const { clientName, items, template } = req.body;
-    const totalAmount = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+    const {
+      clientName,
+      items,
+      template,
+      businessName,
+      businessAddress,
+      businessPhoneNumber,
+      businessEmail,
+      businessLogo,
+      notes
+    } = req.body;
+
+    // Subtotal, discount, total
+    let subtotal = 0;
+    let totalDiscount = 0;
+
+    items.forEach(item => {
+      const base = item.quantity * item.price;
+      subtotal += base;
+      totalDiscount += item.discount || 0;
+    });
+
+    const totalAmount = items.reduce((acc, item) => {
+      const base = item.quantity * item.price;
+      const tax = base * ((item.cgst + item.sgst) / 100);
+      return acc + base + tax - (item.discount || 0);
+    }, 0);
 
     const invoice = new Invoice({
       clientName,
       items,
-      totalAmount,
       template,
+      businessName,
+      businessAddress,
+      businessPhoneNumber,
+      businessEmail,
+      businessLogo,
+      notes,
+      subtotal,
+      totalDiscount,
+      totalAmount,
+      status: 'unpaid',
+      createdAt: new Date()
     });
 
     await invoice.save();
-  console.log(invoice)
+
     const html = await ejs.renderFile(
       path.join(__dirname, `../templates/${template}.ejs`),
       { invoice }
     );
-    const fs = require('fs');
-    fs.writeFileSync('debug.html', html);
-    
+
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
-
     await page.setContent(html, { waitUntil: 'networkidle0' });
 
     const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true });
-
     await browser.close();
 
     res.setHeader('Content-Type', 'application/pdf');
@@ -74,5 +138,3 @@ exports.generatePDF = async (req, res) => {
     res.status(500).send('Failed to generate PDF');
   }
 };
-
-  

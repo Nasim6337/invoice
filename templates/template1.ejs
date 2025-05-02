@@ -1,140 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Invoice</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      background: #f9f9f9;
-      color: #333;
+    body { font-family: Arial, sans-serif; padding: 20px; color: #333; }
+    h1, h2, h3, h4 { margin: 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .header { text-align: center; margin-bottom: 10px; }
+    .business-info, .invoice-meta { width: 100%; }
+    .business-info td, .invoice-meta td { padding: 4px 8px; font-size: 14px; }
+    .section-title { background: #c9a43c; color: white; padding: 5px 10px; font-weight: bold; }
+    .invoice-table th, .invoice-table td {
+      border: 1px solid #ccc; padding: 8px; font-size: 14px; text-align: center;
     }
-    .invoice-box {
-      background: #fff;
-      padding: 30px;
-      border: 1px solid #eee;
-      max-width: 800px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 40px;
-    }
-    .company-details, .client-details {
-      font-size: 14px;
-    }
-    h1, h2, h3 {
-      margin: 0 0 10px 0;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-    th, td {
-      padding: 12px;
-      text-align: left;
-    }
-    th {
-      background-color: #f0f0f0;
-    }
-    .totals {
-      margin-top: 20px;
-      float: right;
-      width: 300px;
-    }
-    .totals table {
-      border: none;
-    }
-    .totals td {
-      border: none;
-      padding: 6px 0;
-    }
-    .notes {
-      margin-top: 60px;
-      font-size: 13px;
-      color: #666;
-    }
+    .invoice-table th { background: #c9a43c; color: white; }
+    .totals td { padding: 5px 10px; font-size: 14px; }
+    .signature { margin-top: 40px; text-align: right; padding-right: 50px; }
+    .notes, .payment { margin-top: 20px; font-size: 14px; }
   </style>
 </head>
 <body>
 
-
-  <div class="invoice-box">
-    <div class="header">
-      <div class="company-details">
-        <h2>My Company</h2>
-        <p>
-          123 Business Rd.<br>
-          City, Country<br>
-          Email: contact@mycompany.com
-        </p>
-      </div>
-      <div class="client-details">
-        <h3>Invoice To:</h3>
-        <p>
-          <%= invoice.clientName %>
-        </p>
-        <p>
-          <strong>Invoice #:</strong> <%= invoice._id %><br>
-          <strong>Date:</strong> <%= new Date(invoice.createdAt).toLocaleDateString() %><br>
-          <strong>Status:</strong> <%= invoice.status %>
-        </p>
-      </div>
-    </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Description</th>
-          <th>Qty</th>
-          <th>Unit Price</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% invoice.items.forEach((item, index) => { %>
-          <tr>
-            <td><%= index + 1 %></td>
-            <td><%= item.description %></td>
-            <td><%= item.quantity %></td>
-            <td>₹<%= item.price.toFixed(2) %></td>
-            <td>₹<%= (item.quantity * item.price).toFixed(2) %></td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table>
-
-    <div class="totals">
-      <table>
-        <tr>
-          <td><strong>Subtotal:</strong></td>
-          <td>
-            ₹<%= invoice.items.reduce((sum, item) => sum + item.quantity * item.price, 0).toFixed(2) %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Tax:</strong></td>
-          <td>--</td>
-        </tr>
-        <tr>
-          <td><strong>Total:</strong></td>
-          <td><strong>₹<%= invoice.totalAmount.toFixed(2) %></strong></td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="notes">
-      <p><strong>Notes:</strong> Thank you for your business. Please make the payment by the due date.</p>
-    </div>
+  <div class="header">
+    <h1>Invoice</h1>
+    <p><strong>Business Name</strong><br>
+      123 Street Address, City, State, Zip<br>
+      Website, Email Address<br>
+      Contact Number<br>
+      GSTIN NO.: <%= invoice.gstin || 'N/A' %></p>
   </div>
+
+  <table class="invoice-meta">
+    <tr>
+      <td><strong>Invoice No.:</strong> <%= invoice._id || 'Auto-ID' %></td>
+      <td><strong>Invoice Date:</strong> <%= invoice.createdAt.toLocaleDateString() %></td>
+      <td><strong>Due Date:</strong> <%= invoice.dueDate || 'N/A' %></td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <td>
+        <div class="section-title">BILL TO</div>
+        <p>
+          <%= invoice.clientName %><br>
+          Business Name<br>
+          Address Line<br>
+          GSTIN NO.: N/A
+        </p>
+      </td>
+      <td>
+        <div class="section-title">SHIP TO</div>
+        <p>
+          <%= invoice.clientName %><br>
+          Business Name<br>
+          Address Line<br>
+          GSTIN NO.: N/A
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <table class="invoice-table">
+    <thead>
+      <tr>
+        <th>DESCRIPTION</th>
+        <th>QTY</th>
+        <th>UNIT PRICE</th>
+        <th>TOTAL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% invoice.items.forEach(item => { %>
+        <tr>
+          <td><%= item.description %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.price.toFixed(2) %></td>
+          <td><%= (item.quantity * item.price).toFixed(2) %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <table class="totals">
+    <tr><td align="right">Subtotal:</td><td align="right">₹ <%= invoice.totalAmount.toFixed(2) %></td></tr>
+    <tr><td align="right">Discount:</td><td align="right">₹ 0.00</td></tr>
+    <tr><td align="right">Subtotal (less discount):</td><td align="right">₹ <%= invoice.totalAmount.toFixed(2) %></td></tr>
+    <tr><td align="right">CGST @ 9%:</td><td align="right">₹ 0.00</td></tr>
+    <tr><td align="right">SGST @ 9%:</td><td align="right">₹ 0.00</td></tr>
+    <tr><td align="right">Received as Balance:</td><td align="right">₹ 0.00</td></tr>
+    <tr><td align="right"><strong>Balance Due:</strong></td><td align="right"><strong>₹ <%= invoice.totalAmount.toFixed(2) %></strong></td></tr>
+    <tr><td align="right"><strong>GRAND TOTAL:</strong></td><td align="right"><strong>₹ <%= invoice.totalAmount.toFixed(2) %></strong></td></tr>
+  </table>
+
+  <div class="notes">
+    <strong>Terms & Instructions:</strong><br>
+    Goods once sold will not be taken back or exchanged.
+  </div>
+
+  <div class="payment">
+    <strong>Payment Mode:</strong> UPI
+  </div>
+
+  <div class="signature">
+    <p>Seal & Signature</p>
+  </div>
+
 </body>
 </html>
