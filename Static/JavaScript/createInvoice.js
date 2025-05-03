@@ -140,7 +140,7 @@ function openTemplateModal() {
 
   async function generateInvoice() {
     
-    const clientName = document.querySelector('input[placeholder="Business Name"]').value;
+    const clientName = document.querySelector('input[placeholder="Client Name"]').value;
   
     const itemRows = document.querySelectorAll('#add_item .item_cell');
     const items = [];
@@ -172,6 +172,7 @@ function openTemplateModal() {
       });
   
       const blob = await response.blob();
+      console.log("blob",blob)
       const downloadUrl = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = downloadUrl;

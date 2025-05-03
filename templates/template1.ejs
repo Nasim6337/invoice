@@ -24,11 +24,11 @@
 
   <div class="header">
     <h1>Invoice</h1>
-    <p><strong>Business Name</strong><br>
-      123 Street Address, City, State, Zip<br>
-      Website, Email Address<br>
-      Contact Number<br>
-      GSTIN NO.: <%= invoice.gstin || 'N/A' %></p>
+    <p><strong><%= business.businessName  %></strong><br>
+      <%= business.businessAddress %> <br>
+      Website, <%= business.businessEmail  %><br>
+      <%= business.businessPhoneNumber %><br>
+      GSTIN NO.: <%= business.businessGSTIN_Number || 'N/A' %></p>
   </div>
 
   <table class="invoice-meta">
@@ -44,19 +44,19 @@
       <td>
         <div class="section-title">BILL TO</div>
         <p>
-          <%= invoice.clientName %><br>
-          Business Name<br>
-          Address Line<br>
-          GSTIN NO.: N/A
+          <%= business.businessName %><br>
+          <%= business.businessEmail %><br>
+          <%= business.businessAddress %><br>
+          <%= business.businessGSTIN_Number || 'N/A' %>
         </p>
       </td>
       <td>
         <div class="section-title">SHIP TO</div>
         <p>
           <%= invoice.clientName %><br>
-          Business Name<br>
-          Address Line<br>
-          GSTIN NO.: N/A
+          <%= invoice.businessEmail %><br>
+          <%= invoice.businessAddress %><br>
+          <%= invoice.businessPhoneNumber %>
         </p>
       </td>
     </tr>

@@ -1,8 +1,9 @@
 const Invoice = require('../models/invoice');
 const puppeteer = require('puppeteer');
+const userModel=require('../models/user-model');
 const path = require('path');
 const ejs = require('ejs');
-
+const businessModel=require('../models/business-model')
 exports.createInvoice = async (req, res) => {
   const {
     clientName,
@@ -32,7 +33,8 @@ exports.createInvoice = async (req, res) => {
     return acc + base + tax - (item.discount || 0);
   }, 0);
 
-  const invoice = new Invoice({
+  
+  const invoice = await  Invoice.create({
     clientName,
     items,
     template,
@@ -46,10 +48,16 @@ exports.createInvoice = async (req, res) => {
     totalDiscount,
     totalAmount,
     status: 'Pending', // default
-    createdAt: new Date()
   });
-
-  await invoice.save();
+  if(invoice)
+  {const invoiceRef=invoice?._id;
+    const userData=req.UserData;
+    await userModel.findByIdAndUpdate({_id:userData?.userId},
+      {$push:{totalInvoices:invoiceRef}
+      },
+      {new:true}
+    )
+  }
   res.status(201).json(invoice);
 };
 
@@ -98,8 +106,8 @@ exports.generatePDF = async (req, res) => {
       const tax = base * ((item.cgst + item.sgst) / 100);
       return acc + base + tax - (item.discount || 0);
     }, 0);
-
-    const invoice = new Invoice({
+  
+    const invoice = await  Invoice.create({
       clientName,
       items,
       template,
@@ -112,15 +120,27 @@ exports.generatePDF = async (req, res) => {
       subtotal,
       totalDiscount,
       totalAmount,
-      status: 'unpaid',
-      createdAt: new Date()
+      status: 'unpaid', // default
     });
 
-    await invoice.save();
+    if(invoice)
+    {const invoiceRef=invoice?._id;
+      const userData=req.UserData;
+      await userModel.findByIdAndUpdate({_id:userData?.userId},
+        {$push:{totalInvoices:invoiceRef}
+        },
+        {new:true}
+      )
+    }
+
+    let business=await userModel.findOne({_id:req?.UserData?.userId})
+    .populate("businessDetail")
+    
+  
 
     const html = await ejs.renderFile(
       path.join(__dirname, `../templates/${template}.ejs`),
-      { invoice }
+      { invoice,"business":business?.businessDetail }
     );
 
     const browser = await puppeteer.launch({ headless: true });

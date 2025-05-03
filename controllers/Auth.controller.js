@@ -101,7 +101,9 @@ exports.verifySignupOTP = async (req, res) => {
       expiresIn: '7d',
     });
 
-    res.status(200).json({ message: 'Signup successful', token });
+    res.status(200).json({
+      status:"register",
+       message: 'Signup successful', token });
   } catch (err) {
     console.error('Signup Verification Error:', err);
     res.status(500).json({ message: 'OTP verification failed', error: err.message });
@@ -190,7 +192,7 @@ exports.verifyLoginOTP = async (req, res) => {
     if(token)
     {
         return res.status(200).json({
-        status:true,
+        status:"login",
         message:"login successfully",
         token
        })

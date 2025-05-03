@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const invoiceSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  invoiceCreator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   clientName: String,
   items: [
     {
@@ -21,7 +21,12 @@ businessPhoneNumber: String,
 businessEmail: String,
 businessLogo: String,
 notes: String,
-  createdAt: { type: Date, default: Date.now },
+dueDate:{
+  type:String,
+  default:Date.now()
+}
+},{
+  timestamps:true
 });
 
 module.exports = mongoose.model('Invoice', invoiceSchema);

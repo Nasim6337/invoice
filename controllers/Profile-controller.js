@@ -1,5 +1,5 @@
 const userModel=require('../models/user-model');
-
+const businessModel=require('../models/business-model');
 
 const getProfileInfo=async(req,res)=>{
       try {
@@ -66,4 +66,110 @@ const deleteProfile=async(req,res)=>{
     }
 }
 
-module.exports={getProfileInfo,editProfile,deleteProfile};
+const businessDetail=async(req,res)=>{
+    try {        
+        const {businessName,businessEmail,businessPhoneNumber,businessAddress}=req.body;
+        if(!businessName || !businessEmail ||!businessAddress || !businessPhoneNumber)
+            return res.status(403).json({
+        status:false,
+    message:"Please fill all required field"});
+        const userData=req?.UserData;
+        if(!userData){
+            return res.json({status:false,
+                message:"something went wrong in user detail fetching"
+            })
+        }
+
+        let user=await userModel.findOne({_id:userData?.userId});
+
+        if(user){
+            let business=await businessModel.create({
+                businessOwner:user._id ,
+                businessName,businessEmail,businessPhoneNumber,businessAddress
+            })
+            if(business){
+                user.businessDetail=business._id;
+                await user.save();
+                return res.status(200).json({
+                    status:true,
+                    message:"business detail created successfully"
+                })
+            }
+        }
+
+    } catch (error) {
+        return res.status(500).json({
+            status:false,
+            message:error.message
+        })
+    }
+}
+
+const updateBusinessDetail=async(req,res)=>{
+    
+    try {        
+        const {businessName,businessEmail,businessPhoneNumber,businessAddress}=req.body;
+        if(!businessName || !businessEmail ||!businessAddress || !businessPhoneNumber)
+            return res.status(403).json({
+        status:false,
+        message:"Please fill all required field"});
+        const userData=req?.UserData;
+
+
+           const user = await userModel
+            .findById(userData?.userId)
+            .populate("businessDetail");
+
+        if (!user || !user.businessDetail) {
+        return res.status(404).json({
+            status: false,
+            message: "Business not found for this user"
+        });
+        }
+
+        if(user){
+            let updatedBusiness=await businessModel.findByIdAndUpdate({_id:user?.businessDetail?._id},{
+                businessName,businessEmail,businessPhoneNumber,businessAddress
+            },{
+                new:true
+            })
+            if(updatedBusiness){
+                return res.status(200).json({
+                    status:true,
+                    message:"business detail updated successfully"
+                })
+            }
+        }  
+
+    } catch (error) {
+        console.log("error in updating business",error.message)
+        return res.status(500).json({
+            status:false,
+            message:error.message
+        })
+    }
+}
+
+const getBusinessDetail=async(req,res)=>{
+    try {
+        let userData=req?.UserData;
+        let business=await userModel.findOne({_id:userData?.userId}).populate("businessDetail");
+
+        if(!business){
+            return res.json({status:false,
+                message:"something went wrong in detail fetching"
+            })
+        }
+        return res.status(200).json({
+            status:true,
+            "business":business.businessDetail
+        })
+    } catch (error) {
+        return res.status(501).json({
+            status:false,
+            message:error.message
+        })
+    }
+}
+
+module.exports={getProfileInfo,editProfile,deleteProfile,businessDetail,updateBusinessDetail,getBusinessDetail};

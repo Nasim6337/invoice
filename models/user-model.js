@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
   profilePicture:{
     type:String,
     default:"https://tableconvert.com/images/avatar.png"
+  },
+  businessDetail:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Business"
   }
 },
 {

@@ -113,12 +113,17 @@
     localStorage.setItem("token",result.token)
     document.cookie = `token=${result.token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
 
-    if (result.status) {
+    if (result.status==="login") {
      // alert("OTP verified successfully!");
       window.location.href = "http://localhost:5000/"; // Adjust based on your project
-    } else {
+    } 
+    else if(result.status==="register"){
+      window.location.href = "http://localhost:5000/login";
+    }
+    else {
       alert(result.message || "OTP verification failed!");
     }
+
   });
 </script>
 

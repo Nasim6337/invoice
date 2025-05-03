@@ -36,28 +36,15 @@
       <form action="" method="post"></form>
       <!-- 🏢 Business Information -->
       <section class="space-y-4">
-        <h2 class="text-lg font-semibold text-gray-700">Business Information</h2>
+        <h2 class="text-lg font-semibold text-gray-700">Client Information</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input name="BusinessName" type="text" placeholder="Business Name" class="border rounded-lg p-3 w-full">
-          <input name="BusinessEmail" type="email" placeholder="Business Email" class="border rounded-lg p-3 w-full">
-          <textarea name="BusinessAddress" placeholder="Business Address" class="border rounded-lg p-3 w-full md:col-span-1" rows="3"></textarea>
+          <input name="BusinessName" type="text" placeholder="Client Name" class="border rounded-lg p-3 w-full">
+          <input name="BusinessEmail" type="email" placeholder="client Email" class="border rounded-lg p-3 w-full">
+          <textarea name="BusinessAddress" placeholder="client Address" class="border rounded-lg p-3 w-full md:col-span-1" rows="3"></textarea>
           <input name="BusinessPhoneNumber" type="text" placeholder="Phone Number" class="border rounded-lg p-3 w-full">
         </div>
   
-        <!-- 📷 Business Logo Upload -->
-        <div>
-          <h3 class="text-sm font-semibold text-gray-600 mb-2">Business Logo</h3>
-          <div class="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg h-32">
-            <div class="text-center">
-              <svg class="mx-auto h-10 w-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 48 48">
-                <path d="M6 30V6h36v24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M6 30l12-12 8 8 12-12 8 8v18H6z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <p class="text-sm text-gray-600">Upload a file</p>
-              <input type="file" name="BusinessLogo" id="Upload_logo" class="cursor-pointer">
-            </div>
-          </div>
-        </div>
+    
       </section>
   
       <!-- 📋 Items Section -->
@@ -134,13 +121,7 @@
           <textarea class="border rounded-lg p-3 w-full" rows="4" placeholder="Additional notes or terms..."></textarea>
         </div>
   
-        <!-- ✍️ Signature -->
-        <div>
-          <h3 class="text-sm font-semibold text-gray-600 mb-2">Signature</h3>
-          <div class="border-2 border-dashed border-gray-300 rounded-lg h-32 flex items-center justify-center">
-            <p class="text-gray-400">Click to sign</p>
-          </div>
-        </div>
+   
       </section>
   
       <!-- ✅ Buttons -->
