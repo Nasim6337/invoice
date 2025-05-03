@@ -5,6 +5,7 @@ const path = require('path');
 const ejs = require('ejs');
 const clientModel=require('../models/client-model');
 const businessModel=require('../models/business-model')
+const {createClient}=require('../controllers/common-controller');
 exports.createInvoice = async (req, res) => {
   const {
     clientName,
@@ -109,7 +110,6 @@ exports.generatePDF = async (req, res) => {
     }, 0);
   
     const invoice = await  Invoice.create({
-      clientName,
       items,
       template,
       businessName,
@@ -124,37 +124,18 @@ exports.generatePDF = async (req, res) => {
       status: 'unpaid', // default
     });
 
-    let invoicerUser;
+    let invoiceUser;
     if(invoice)
     {const invoiceRef=invoice?._id;
       const userData=req.UserData;
-      let invoicerUser=await userModel.findByIdAndUpdate({_id:userData?.userId},
+       invoiceUser=await userModel.findByIdAndUpdate({_id:userData?.userId},
         {$push:{totalInvoices:invoiceRef}
         },
         {new:true}
       )
     }
-
-    if(invoicerUser){
-      try {
-        let client=await clientModel.findone({clientEmail:businessEmail})
-        if(client && client.clientPhoneNumber===businessPhoneNumber){
-          client.numberOfInvoices.push(invoice._id);
-          await client.save();
-        }
-
-        let createdClient=await clientModel.create({
-          clientName:businessName,
-    clientEmail:businessEmail,
-    clientAddress:businessAddress,
-    clientPhoneNumber:businessPhoneNumber,
-    businessRelation:invoicerUser._id,
-    numberOfInvoices:invoice._id
-
-        })
-      } catch (error) {
-        console.log("error in client creation",error.message)
-      }
+    if(invoiceUser){
+      await createClient(invoiceUser,invoice,req.body)
     }
 
     let business=await userModel.findOne({_id:req?.UserData?.userId})

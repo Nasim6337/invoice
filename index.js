@@ -9,7 +9,7 @@ const checkLogin=require('./middleware/auth-land-middleware')
 const app = express();
 const cookie=require('cookie-parser');
 const PORT = process.env.PORT || 5000;
-
+const commonRoute=require('./routes/common-route')
 // Connect to MongoDB
 connectDB();
 app.use(cookie())
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, "Static")));
 app.use('/api/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/api/invoices', invoiceRoutes);
-
+app.use('/api',commonRoute);
 
 
 

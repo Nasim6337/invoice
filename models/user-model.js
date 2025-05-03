@@ -39,6 +39,10 @@ const userSchema = new mongoose.Schema({
   businessDetail:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"Business"
+  },
+  clientDetail:{
+          type:[mongoose.Schema.Types.ObjectId],
+          ref:"Client"
   }
 },
 {
