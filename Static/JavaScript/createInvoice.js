@@ -140,8 +140,11 @@ function openTemplateModal() {
 
   async function generateInvoice() {
     
-    const clientName = document.querySelector('input[placeholder="Client Name"]').value;
-  
+    const businessName = document.getElementById('businessName').value;
+    const businessEmail = document.getElementById('businessEmail').value;
+    const businessAddress = document.getElementById('businessAddress').value;
+    const businessPhoneNumber = document.getElementById('businessPhoneNumber').value;
+
     const itemRows = document.querySelectorAll('#add_item .item_cell');
     const items = [];
   
@@ -157,7 +160,10 @@ function openTemplateModal() {
     });
   
     const payload = {
-      clientName,
+      businessName,
+      businessAddress,
+      businessEmail,
+      businessPhoneNumber,
       items,
       template:  'template1' // default fallback
     };

@@ -22,6 +22,9 @@ app.use('/api/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/api/invoices', invoiceRoutes);
 
+
+
+
 // Serve static homepage
 app.get("/",checkLogin, (req, res) => {
   res.sendFile(path.join(__dirname, 'Static',"HTML", 'index.html'));
