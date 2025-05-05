@@ -3,7 +3,6 @@ const redisClient = require('../config/redis');
 const jwt = require('jsonwebtoken');
 const sendOTP = require('../Utils/otp');
 const bcrypt = require('bcrypt');
-
 // Utility to generate a 6-digit OTP
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -11,7 +10,7 @@ const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString()
 
 // Send OTP for Signup
 exports.sendSignupOTP = async (req, res) => {
-  const { name, email, password,accountNumber,ifscCode,bankName,phone } = req.body;
+  const { name, email, password,phone } = req.body;
   console.log(req.body)
 
   if (!name || !email || !password) {
@@ -31,11 +30,6 @@ exports.sendSignupOTP = async (req, res) => {
       email,
       otp,
       phone,
-      bankDetails: {
-        accountNumber,
-        ifsc: ifscCode,
-        bankName
-      },
       password,
       expiresAt: Date.now() + 5 * 60 * 1000, // 5 minutes
     };
@@ -70,7 +64,7 @@ exports.verifySignupOTP = async (req, res) => {
       return res.status(500).json({ message: 'Corrupted OTP data' });
     }
 
-    const { name, otp: savedOtp, expiresAt, password ,bankDetails} = parsed;
+    const { name, otp: savedOtp, expiresAt, password } = parsed;
 
     if (otp !== savedOtp) {
       return res.status(400).json({ message: 'Invalid OTP' });
@@ -90,7 +84,6 @@ exports.verifySignupOTP = async (req, res) => {
         name,
         email,
         password: hashedPassword,
-        bankDetails,
         isVerified: true,
       });
     }

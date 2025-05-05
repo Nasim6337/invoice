@@ -48,6 +48,37 @@
     </div>
   </div>
 
+  <!-- bank details -->
+   <div class="bg-yellow-600 text-white w-full mt-6   text-xl font-bold">Bank Account Details</div>
+   <table  class="table-auto w-full  border border-gray-300 text-sm text-center">
+
+    <tbody>
+
+      <tr>
+        <td class="border border-gray-300 px-4 py-2 font-bold">Bank Holder Name</td>
+        <td class="border border-gray-300 px-4 py-2"><%= business?.bankDetails?.holderName %></td>
+      </tr>
+
+      <tr>
+        <td class="font-bold border border-gray-300 px-4 py-2">Bank  Name</td>
+        <td class="border border-gray-300 px-4 py-2"><%= business?.bankDetails?.bankName %></td>
+      </tr>
+
+      <tr>
+        <td class="border border-gray-300 px-4 py-2 font-bold">Account Number</td>
+        <td class="border border-gray-300 px-4 py-2"><%= business?.bankDetails?.accountNumber %></td>
+      </tr>
+
+      <tr>
+        <td class="border border-gray-300 px-4 py-2 font-bold">IFSC Code</td>
+        <td class="border border-gray-300 px-4 py-2"><%= business?.bankDetails?.ifsc %></td>
+      </tr>     
+
+    </tbody>
+
+   </table>
+
+
   <table class="table-auto w-full mt-6 border border-gray-300 text-sm text-center">
     <thead>
       <tr class="bg-yellow-600 text-white">

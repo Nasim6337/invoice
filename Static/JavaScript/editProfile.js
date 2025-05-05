@@ -30,6 +30,13 @@ document.addEventListener("DOMContentLoaded", async() => {
             document.getElementById("businessEmail").value = business?.businessEmail || "";
             document.getElementById("businessPhoneNumber").value = business?.businessPhoneNumber || "";
             document.getElementById("businessAddress").value = business?.businessAddress || "";
+            document.getElementById("bankHolderName").value = business?.bankDetails?.holderName || "XYZ";
+            document.getElementById("bankName").value = business?.bankDetails?.bankName || "XYZ Bank";
+            document.getElementById("ifscCode").value = business?.bankDetails?.ifsc || "XYZ";
+            document.getElementById("accountNumber").value = business?.bankDetails?.accountNumber || "XYZ";
+
+
+
           } else {
             alert("Failed to load user data.");
           }
@@ -82,6 +89,10 @@ document.addEventListener("DOMContentLoaded", async() => {
       businessName: document.getElementById("businessName").value,
       businessPhoneNumber: document.getElementById("businessPhoneNumber").value,
       businessAddress: document.getElementById("businessAddress").value,
+      bankName:document.getElementById('bankName').value,
+      holderName:document.getElementById('bankHolderName').value,
+      accountNumber:document.getElementById('accountNumber').value,
+      ifsc:document.getElementById('ifscCode').value,
     };
 
     document.getElementById('updateBusiness')

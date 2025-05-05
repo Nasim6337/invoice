@@ -68,7 +68,7 @@ const deleteProfile=async(req,res)=>{
 
 const businessDetail=async(req,res)=>{
     try {        
-        const {businessName,businessEmail,businessPhoneNumber,businessAddress}=req.body;
+        const {businessName,businessEmail,businessPhoneNumber,businessAddress,holderName,bankName,accountNumber,ifsc}=req.body;
         if(!businessName || !businessEmail ||!businessAddress || !businessPhoneNumber)
             return res.status(403).json({
         status:false,
@@ -83,9 +83,11 @@ const businessDetail=async(req,res)=>{
         let user=await userModel.findOne({_id:userData?.userId});
 
         if(user){
+            let bankDetails={accountNumber,ifsc,holderName,bankName}
             let business=await businessModel.create({
                 businessOwner:user._id ,
-                businessName,businessEmail,businessPhoneNumber,businessAddress
+                businessName,businessEmail,businessPhoneNumber,businessAddress,
+                bankDetails
             })
             if(business){
                 user.businessDetail=business._id;
@@ -108,7 +110,7 @@ const businessDetail=async(req,res)=>{
 const updateBusinessDetail=async(req,res)=>{
     
     try {        
-        const {businessName,businessEmail,businessPhoneNumber,businessAddress}=req.body;
+        const {businessName,businessEmail,businessPhoneNumber,businessAddress,accountNumber,ifsc,holderName,bankName}=req.body;
         if(!businessName || !businessEmail ||!businessAddress || !businessPhoneNumber)
             return res.status(403).json({
         status:false,
@@ -128,8 +130,10 @@ const updateBusinessDetail=async(req,res)=>{
         }
 
         if(user){
+            let bankDetails={accountNumber,ifsc,holderName,bankName}
             let updatedBusiness=await businessModel.findByIdAndUpdate({_id:user?.businessDetail?._id},{
-                businessName,businessEmail,businessPhoneNumber,businessAddress
+                businessName,businessEmail,businessPhoneNumber,businessAddress,
+                bankDetails
             },{
                 new:true
             })

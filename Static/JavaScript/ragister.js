@@ -12,10 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         password: inputs[2].value,
         confirmPassword: inputs[3].value,
         phone: inputs[4].value,
-        bankName: inputs[5].value,
-        accountNumber: inputs[6].value,
-        ifscCode: inputs[7].value,
-        country: inputs[8].value,
+        country: inputs[5].value,
       };
   
       if (data.password !== data.confirmPassword) {

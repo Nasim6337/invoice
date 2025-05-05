@@ -10,11 +10,6 @@ const userSchema = new mongoose.Schema({
   password: String,
   otp: String,
   isVerified: { type: Boolean, default: false },
-  bankDetails: {
-    accountNumber: String,
-    ifsc: String,
-    bankName: String
-  },
   totalInvoices: {
     type: [mongoose.Schema.Types.ObjectId], 
     ref: 'Invoice',

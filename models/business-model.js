@@ -17,6 +17,12 @@ const businessSchema=mongoose.Schema({
     businessAddress:{type:String,default:"XYZ city ABC-230678"},
     businessLogo:String,
     businessGSTIN_Number:String,
+    bankDetails: {
+        accountNumber: String,
+        ifsc: String,
+        bankName: String,
+        holderName:String
+      },
 },
 {
     timestamps:true
